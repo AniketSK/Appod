@@ -3,6 +3,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs"
 
 android {
     compileSdkVersion 28
@@ -25,10 +27,100 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.core:core-ktx:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation androidxDependencies.appCompat
+    implementation ktxdep.lib
+    implementation adxconstraintlayout.lib
+    testImplementation testlib.junit
+
+
+    // Testing
+    testImplementation testlib.junit
+    androidTestImplementation testlib.junit
+
+    androidTestImplementation adxTestLib.runner
+    androidTestImplementation adxTestLib.rules
+    androidTestImplementation adxTestLib.testext
+    androidTestImplementation adxTestLib.espresso
+    androidTestImplementation adxTestLib.espressoContrib
+    androidTestImplementation adxTestLib.uiautomator
+    androidTestImplementation lifecycle.testhelper
+    androidTestImplementation room.test
+
+    // Robolectric and everything it needs for its hybrid unit+instrumentation tests
+    testImplementation robolectric.lib
+    testImplementation adxTestLib.runner
+    testImplementation adxTestLib.core
+    androidTestImplementation adxTestLib.core
+    testImplementation lifecycle.testhelper
+    testImplementation room.test
+
+    implementation rxjava.lib
+    implementation rxjava.android
+    implementation rxjava.bindings
+    implementation rxjava.bindingRecyclerview
+
+    implementation dagger.lib
+    kapt dagger.compiler
+    kaptAndroidTest dagger.compiler
+    implementation dagger.android
+    implementation dagger.support
+    kapt dagger.androidAnnotationProcessor
+    kaptAndroidTest dagger.androidAnnotationProcessor
+
+    // Required to keep dagger 2.19 from being replaced by 2.16 and broken by jetifier.
+    kapt jetifier.core
+    annotationProcessor jetifier.core
+
+    // Network
+    implementation retrofit.lib
+    implementation retrofit.adapters
+    implementation retrofit.gsonconverter
+    implementation gson.lib
+    implementation okhttp.lib
+    implementation okhttp.interceptor
+
+    // Databases
+    // Room
+    implementation room.lib
+    kapt room.compiler
+    kaptAndroidTest room.compiler
+    implementation room.extensions
+    implementation room.rxjava
+
+    // Paging
+    implementation paging.lib
+    implementation paging.rxjava
+    testImplementation paging.testing
+
+    testImplementation mockito.lib
+    testImplementation mockito.android
+    androidTestImplementation mockito.android
+
+    testImplementation hamcrest.lib
+    androidTestImplementation hamcrest.lib
+
+    implementation timber.lib
+
+    // Lifecycle/Architecture
+    implementation lifecycle.extensions
+    kapt lifecycle.kotlinCompiler
+    implementation lifecycle.reactivestreams
+
+    implementation multidex.lib
+
+    // Daggermock when used with androidTest, requires the dexOpener to make the classes mockable.
+    // mock-maker-inline only works for test, not androidTest. So dexopener and it's instrumentation runner
+    // is really required.
+    androidTestImplementation daggerMock.lib
+    androidTestImplementation daggerMock.kotlin
+    androidTestImplementation dexOpener.lib
+
+    implementation glide.lib
+
+    testImplementation mockito.inline
+
+    // Kotlin
+    implementation navigation.fragment
+    implementation navigation.ui
+
 }
