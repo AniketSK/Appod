@@ -1,9 +1,10 @@
-package com.aniketkadam.appod
+package com.aniketkadam.appod.mainscreen
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import com.aniketkadam.appod.R
+import dagger.android.support.DaggerAppCompatActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DaggerAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
