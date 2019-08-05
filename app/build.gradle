@@ -136,4 +136,5 @@ dependencies {
     implementation navigation.fragment
     implementation navigation.ui
 
+    implementation time.lib
 }
