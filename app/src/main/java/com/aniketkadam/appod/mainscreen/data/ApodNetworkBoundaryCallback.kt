@@ -5,6 +5,8 @@ import com.aniketkadam.appod.data.ApodApi
 import com.aniketkadam.appod.data.AstronomyPic
 import com.aniketkadam.appod.data.database.AstronomyPicDao
 import io.reactivex.schedulers.Schedulers
+import org.joda.time.LocalDate
+
 import javax.inject.Inject
 
 class ApodNetworkBoundaryCallback @Inject constructor(
@@ -29,5 +31,24 @@ class ApodNetworkBoundaryCallback @Inject constructor(
         initalLoad
     }
 
+    /**
+     * We've reached the end, now need to load more pics
+     */
+    override fun onItemAtEndLoaded(itemAtEnd: AstronomyPic) {
+        super.onItemAtEndLoaded(itemAtEnd)
+        api.getApodList(getNextItemsToLoad(itemAtEnd)) // dependent on loading items in the view in descending order!!
+    }
 
+    /**
+     * The correct date, assuming that you have items in descending order only and you're going to load items further in the past:
+     * Is the date in the past from the last item here. That is, yesterday becomes the new end date.
+     * The start date is PREFETCH_DISTANCE number of days before yesterday, hence the +1 for the start date.
+     */
+    private fun getNextItemsToLoad(itemAtEnd: AstronomyPic): ApodRequestDates {
+        val dateOfLastItem = LocalDate.parse(itemAtEnd.date)
+        return ApodRequestDates(
+            dateOfLastItem.minusDays(PREFETCH_DISTANCE + 1).toString(),
+            dateOfLastItem.minusDays(1).toString()
+        )
+    }
 }
