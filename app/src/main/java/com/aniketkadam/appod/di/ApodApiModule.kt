@@ -9,6 +9,6 @@ import retrofit2.Retrofit
 class ApodApiModule {
 
     @Provides
-    fun provideApodApi(retrofit: Retrofit) = retrofit.create(ApodApi::class.java)
+    fun provideApodApi(retrofit: Retrofit): ApodApi = retrofit.create(ApodApi::class.java)
 
 }
