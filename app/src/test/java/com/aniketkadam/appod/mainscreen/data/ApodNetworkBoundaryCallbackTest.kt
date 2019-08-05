@@ -38,11 +38,4 @@ class ApodNetworkBoundaryCallbackTest {
         verify(dao, times(1)).insert(listOf(pic))
     }
 
-    @Test
-    fun `when an item at the end is requeted to load, a network call is made and data is stored`() {
-        b = ApodNetworkBoundaryCallback(api, dao, requestDates)
-        b.onItemAtEndLoaded(pic)
-        verify(api, times(1)).getApodList(requestDates)
-        verify(dao, times(1)).insert(listOf(pic))
-    }
 }
