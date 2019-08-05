@@ -1,0 +1,250 @@
+ext {
+
+    versions = [
+            kotlin           : "1.3.41",
+            supportLibrary   : "28.0.0",
+            androidx         : "1.0.2",
+            androidxDesign   : "1.0.0",
+            rxjava           : "2.2.10",
+            leakcanary       : "1.6.3",
+            rxandroid        : "2.1.1",
+            rxbindings       : "3.0.0-alpha2",
+            rxkotlin         : "2.3.0",
+            dagger           : "2.24",
+            mockWebServer    : "4.0.1",
+            gson             : "2.8.5",
+            mockito          : "3.0.0",
+            hamcrest         : "1.3",
+            firestore        : "17.1.0",
+            firebaseui       : "4.1.0",
+            firebaseCore     : "11.8.0",
+            retrofit         : "2.6.0",
+            okhttp           : "4.0.1",
+            constraintlayout : "1.1.3",
+            archextensions   : "1.1.1",
+            timber           : "4.7.1",
+            junit            : "4.12",
+            testRunner       : "1.2.0",
+            adxTestRunner    : "1.2.0",
+            espresso         : "3.2.0",
+            adxEspresso      : "3.2.0",
+            adxTestExt       : "1.0.0",
+            lifecycle        : "2.0.0",
+            navigation       : "2.1.0-beta02",
+            jodatime         : "2.10.1",
+            jetifier         : "1.0.0-beta05",
+            room             : "2.1.0",
+            detekt           : "1.0.0-RC15",
+            realm            : "5.1.0",
+            realmGradlePlugin: "5.13.0",
+            ktx              : "1.0.2",
+            autodispose      : "1.3.0",
+            paging           : "2.1.0",
+            multidex         : "2.0.1",
+            robolectric      : "4.0.2",
+            restMockServer   : "0.4.0",
+            dexOpener        : "2.0.2",
+            daggerMock       : "0.8.5",
+            glide            : "4.9.0",
+            rxrelay          : "2.1.0",
+            uiautomator      : "2.2.0",
+    ]
+
+    glide = [
+            lib: "com.github.bumptech.glide:glide:${versions.glide}"
+
+    ]
+
+    daggerMock = [
+            lib   : "com.github.fabioCollini.daggermock:daggermock:${versions.daggerMock}",
+            kotlin: "com.github.fabioCollini.daggermock:daggermock-kotlin:${versions.daggerMock}"
+    ]
+    dexOpener = [
+            lib: "com.github.tmurakami:dexopener:${versions.dexOpener}"
+    ]
+
+    kotlinAllOpen = [
+            lib: "org.jetbrains.kotlin:kotlin-allopen:${versions.kotlin}"
+    ]
+    restMockServer = [
+            lib: "com.github.andrzejchm.RESTMock:android:${versions.restMockServer}"
+    ]
+
+    robolectric = [
+            lib: "org.robolectric:robolectric:${versions.robolectric}"
+    ]
+
+    multidex = [
+            lib: "androidx.multidex:multidex:${versions.multidex}"
+    ]
+
+    paging = [
+            lib    : "androidx.paging:paging-runtime:${versions.paging}",
+            testing: "androidx.paging:paging-common:${versions.paging}",
+            rxjava : "androidx.paging:paging-rxjava2:${versions.paging}"
+    ]
+
+    ktxdep = [
+            lib: "androidx.core:core-ktx:${versions.ktx}"
+    ]
+    realmdep = [
+            lib               : "io.realm:realm-android-library:${versions.realm}",
+            classpathProcessor: "io.realm:realm-gradle-plugin:${versions.realmGradlePlugin}"
+    ]
+
+    detekt = [
+            gradlePlugin: "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${versions.detekt}",
+            apply       : "io.gitlab.arturbosch.detekt"
+    ]
+    kotlinstd = [
+            lib         : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}",
+            gradlePlugin: "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+    ]
+
+    constraintlayout = [
+            lib: "com.android.support.constraint:constraint-layout:${versions.constraintlayout}"
+    ]
+
+    adxconstraintlayout = [
+            lib: "androidx.constraintlayout:constraintlayout:${versions.constraintlayout}"
+    ]
+
+    archextensions = [
+            lib: "android.arch.lifecycle:extensions:${versions.archextensions}"
+    ]
+
+    supportDependencies = [
+            design           : "com.android.support:design:${versions.supportLibrary}",
+            recyclerView     : "com.android.support:recyclerview-v7:${versions.supportLibrary}",
+            cardView         : "com.android.support:cardview-v7:${versions.supportLibrary}",
+            appCompat        : "com.android.support:appcompat-v7:${versions.supportLibrary}",
+            supportAnnotation: "com.android.support:support-annotations:${versions.supportLibrary}",
+    ]
+
+    androidxDependencies = [
+            appCompat            : "androidx.appcompat:appcompat:${versions.androidx}",
+            design               : "com.google.android.material:material:${versions.androidxDesign}",
+            recyclerViewSelection: "androidx.recyclerview:recyclerview-selection:${versions.androidxDesign}",
+            recyclerView         : " androidx.recyclerview:recyclerview:${versions.androidxDesign}"
+    ]
+
+    rxjava = [
+            lib                : "io.reactivex.rxjava2:rxkotlin:${versions.rxkotlin}",
+            android            : "io.reactivex.rxjava2:rxandroid:${versions.rxandroid}",
+            bindings           : "com.jakewharton.rxbinding3:rxbinding:${versions.rxbindings}",
+            bindingRecyclerview: "com.jakewharton.rxbinding3:rxbinding-recyclerview:${versions.rxbindings}",
+            bindingCore        : "com.jakewharton.rxbinding3:rxbinding-core:${versions.rxbindings}",
+            appCompat          : "com.jakewharton.rxbinding3:rxbinding-appcompat:${versions.rxbindings}",
+            relay              : "com.jakewharton.rxrelay2:rxrelay:${versions.rxrelay}"
+    ]
+
+    dagger = [
+            lib                       : "com.google.dagger:dagger:${versions.dagger}",
+            compiler                  : "com.google.dagger:dagger-compiler:${versions.dagger}",
+            android                   : "com.google.dagger:dagger-android:${versions.dagger}",
+            support                   : "com.google.dagger:dagger-android-support:${versions.dagger}",
+            androidAnnotationProcessor: "com.google.dagger:dagger-android-processor:${versions.dagger}",
+    ]
+
+    mockwebserver = [
+            lib: "com.squareup.okhttp3:mockwebserver:${versions.mockWebServer}"
+    ]
+
+    retrofit = [
+            lib          : "com.squareup.retrofit2:retrofit:${versions.retrofit}",
+            gsonconverter: "com.squareup.retrofit2:converter-gson:${versions.retrofit}",
+            adapters     : "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}"
+    ]
+
+    gson = [
+            lib: "com.google.code.gson:gson:${versions.gson}"
+    ]
+
+    mockito = [
+            lib    : "org.mockito:mockito-core:${versions.mockito}",
+            android: "org.mockito:mockito-android:${versions.mockito}",
+            inline : "org.mockito:mockito-inline:${versions.mockito}",
+    ]
+
+    hamcrest = [
+            lib: "org.hamcrest:hamcrest-library:${versions.hamcrest}"
+    ]
+
+    okhttp = [
+            lib        : "com.squareup.okhttp3:okhttp:${versions.okhttp}",
+            interceptor: "com.squareup.okhttp3:logging-interceptor:${versions.okhttp}"
+    ]
+
+    timber = [
+            lib: "com.jakewharton.timber:timber:${versions.timber}"
+    ]
+
+    firebase = [
+            lib: "com.google.firebase:firebase-core:${versions.firebaseCore}"
+    ]
+
+    testlib = [
+            junit                : "junit:junit:${versions.junit}",
+            testRunner           : "com.android.support.test:runner:${versions.testRunner}",
+            rules                : "com.android.support.test:rules:${versions.testRunner}",
+            espresso             : "com.android.support.test.espresso:espresso-core:${versions.espresso}",
+            instrumentationRunner: "android.support.test.runner.AndroidJUnitRunner"
+    ]
+
+    adxTestLib = [
+            espresso             : "androidx.test.espresso:espresso-core:${versions.adxEspresso}",
+            espressoIntents      : "androidx.test.espresso:espresso-intents:${versions.adxEspresso}",
+            espressoContrib      : "androidx.test.espresso:espresso-contrib:${versions.adxEspresso}",
+            rules                : "androidx.test:rules:${versions.adxTestRunner}",
+            runner               : "androidx.test:runner:${versions.adxTestRunner}",
+            instrumentationRunner: "androidx.test.runner.AndroidJUnitRunner",
+            testext              : "androidx.test.ext:junit:${versions.adxTestExt}",
+            core                 : "androidx.test:core:${versions.adxTestRunner}",
+            uiautomator          : "androidx.test.uiautomator:uiautomator:${versions.uiautomator}"
+    ]
+
+    lifecycle = [
+            extensions     : "androidx.lifecycle:lifecycle-extensions:${versions.lifecycle}",
+            viewmodel      : "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycle}",
+            kotlinCompiler : "androidx.lifecycle:lifecycle-compiler:${versions.lifecycle}",
+            livedata       : "androidx.lifecycle:lifecycle-livedata:${versions.lifecycle}",
+            runtime        : "androidx.lifecycle:lifecycle-runtime:${versions.lifecycle}",
+            java8compiler  : "androidx.lifecycle:lifecycle-common-java8:${versions.lifecycle}",
+            reactivestreams: "androidx.lifecycle:lifecycle-reactivestreams-ktx:${versions.lifecycle}",
+            testhelper     : "androidx.arch.core:core-testing:${versions.lifecycle}"
+    ]
+
+    navigation = [
+            fragment         : "androidx.navigation:navigation-fragment-ktx:${versions.navigation}",
+            ui               : "androidx.navigation:navigation-ui-ktx:${versions.navigation}",
+            classPathSafeArgs: "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}"
+    ]
+
+    room = [
+            lib       : "androidx.room:room-runtime:${versions.room}",
+            compiler  : "androidx.room:room-compiler:${versions.room}",
+            extensions: "androidx.room:room-ktx:${versions.room}",
+            rxjava    : "androidx.room:room-rxjava2:${versions.room}",
+            test      : "androidx.room:room-testing:${versions.room}"
+    ]
+
+    time = [
+            lib: "net.danlew:android.joda:${versions.jodatime}"
+    ]
+
+    jetifier = [
+            classpathProcessor: "com.android.tools.build.jetifier:jetifier-processor:${versions.jetifier}",
+            core              : "com.android.tools.build.jetifier:jetifier-core:${versions.jetifier}"
+    ]
+
+    leakcanary = [
+            libdebug  : "com.squareup.leakcanary:leakcanary-android:${versions.leakcanary}",
+            librelease: "com.squareup.leakcanary:leakcanary-android-no-op:${versions.leakcanary}"
+    ]
+
+    autodispose = [
+            lib: "com.uber.autodispose:autodispose:${versions.autodispose}",
+    ]
+}
+
+
