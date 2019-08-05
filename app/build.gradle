@@ -29,7 +29,10 @@ android {
             arg("room.schemaLocation", "$projectDir/schemas".toString())
         }
     }
-
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
     testOptions {
         unitTests {
             includeAndroidResources = true
