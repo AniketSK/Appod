@@ -1,6 +1,7 @@
 package com.aniketkadam.appod.mainscreen.data
 
 import org.joda.time.LocalDate
+import javax.inject.Inject
 
 /**
  * We need to get a certain number of items.
@@ -13,7 +14,7 @@ import org.joda.time.LocalDate
  *              or a given date.
  *
  */
-class ApodRequestConstructor {
+class ApodRequestConstructor @Inject constructor() {
 
     fun getDatesForNumItemsStartingToday(numItems: Int, today: LocalDate = LocalDate.now()): ApodRequestDates {
         val numDaysAgo = today.minusDays(numItems - 1)

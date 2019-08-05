@@ -9,13 +9,16 @@ import javax.inject.Inject
 
 class ApodNetworkBoundaryCallback @Inject constructor(
     private val api: ApodApi,
-    private val dao: AstronomyPicDao
+    private val dao: AstronomyPicDao,
+    private val initialRequestDates: ApodRequestDates = ApodRequestConstructor().getDatesForNumItemsStartingToday(
+        PREFETCH_DISTANCE
+    )
 ) :
     PagedList.BoundaryCallback<AstronomyPic>() {
 
     private val initalLoad by lazy {
         // Get from the network and store in the database
-        api.getApodList(ApodRequestConstructor().getDatesForNumItemsStartingToday(PREFETCH_DISTANCE))
+        api.getApodList(initialRequestDates)
             .map(dao::insert)
             .subscribeOn(Schedulers.io())
             .subscribe()
