@@ -21,4 +21,10 @@ class ApodRequestConstructor {
     }
 }
 
-data class ApodRequestDates(val startDate: String, val endDate: String)
+class ApodRequestDates() : HashMap<String, String>() {
+
+    constructor(startDate: String, endDate: String) : this() {
+        put("start_date", startDate)
+        put("end_date", endDate)
+    }
+}
