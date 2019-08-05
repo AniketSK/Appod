@@ -16,7 +16,8 @@ import org.joda.time.LocalDate
 class ApodRequestConstructor {
 
     fun getDatesForNumItemsStartingToday(numItems: Int, today: LocalDate = LocalDate.now()): ApodRequestDates {
-        return ApodRequestDates("", "")
+        val numDaysAgo = today.minusDays(numItems - 1)
+        return ApodRequestDates(numDaysAgo.toString(), today.toString())
     }
 }
 
