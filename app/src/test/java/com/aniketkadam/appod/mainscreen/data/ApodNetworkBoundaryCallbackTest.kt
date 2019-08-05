@@ -21,11 +21,12 @@ class ApodNetworkBoundaryCallbackTest {
     @Mock
     lateinit var requestDates: ApodRequestDates
     lateinit var b: ApodNetworkBoundaryCallback
+    private val pic = AstronomyPic("", "", "", "", "")
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        When(api.getApodList(requestDates)).thenReturn(Single.just(listOf(AstronomyPic("", "", "", "", ""))))
+        When(api.getApodList(requestDates)).thenReturn(Single.just(listOf(pic)))
     }
 
     @Test
@@ -34,5 +35,14 @@ class ApodNetworkBoundaryCallbackTest {
         b.onZeroItemsLoaded()
         b.onZeroItemsLoaded()
         verify(api, times(1)).getApodList(requestDates)
+        verify(dao, times(1)).insert(listOf(pic))
+    }
+
+    @Test
+    fun `when an item at the end is requeted to load, a network call is made and data is stored`() {
+        b = ApodNetworkBoundaryCallback(api, dao, requestDates)
+        b.onItemAtEndLoaded(pic)
+        verify(api, times(1)).getApodList(requestDates)
+        verify(dao, times(1)).insert(listOf(pic))
     }
 }
