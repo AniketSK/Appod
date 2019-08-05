@@ -24,6 +24,7 @@ class ApodRequestConstructor {
 class ApodRequestDates() : HashMap<String, String>() {
 
     constructor(startDate: String, endDate: String) : this() {
+        if (LocalDate.parse(endDate).isBefore(LocalDate.parse(startDate))) throw IllegalArgumentException("Start date cannot be before end date")
         put("start_date", startDate)
         put("end_date", endDate)
     }
