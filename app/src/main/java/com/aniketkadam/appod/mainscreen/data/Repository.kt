@@ -7,7 +7,7 @@ import com.aniketkadam.appod.data.AstronomyPic
 import com.aniketkadam.appod.data.database.AstronomyPicDao
 import javax.inject.Inject
 
-private const val PREFETCH_DISTANCE = 50
+const val PREFETCH_DISTANCE = 50
 
 class Repository @Inject constructor(private val dao: AstronomyPicDao) {
 
