@@ -64,7 +64,7 @@ class ApodNetworkBoundaryCallbackTestInstrumented {
         bc.onItemAtEndLoaded(emptyAstronomyPic().copy(date = "2019-08-05"))
         bc.onItemAtEndLoaded(emptyAstronomyPic().copy(date = "2019-08-05"))
         ts.advanceTimeBy(5, TimeUnit.SECONDS)
-        verify(exactly = 1) { dao.insert(allAny()) }
+        verify(exactly = 1) { api.getApodList(any()) }
 
         RxJavaPlugins.reset()
     }
