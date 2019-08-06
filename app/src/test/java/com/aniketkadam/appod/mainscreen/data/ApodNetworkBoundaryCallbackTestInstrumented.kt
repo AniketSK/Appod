@@ -68,4 +68,18 @@ class ApodNetworkBoundaryCallbackTestInstrumented {
 
         RxJavaPlugins.reset()
     }
+
+    @Test
+    fun `when an initial item load is started, disregard calls to onItemAtEndLoaded`() {
+        every { api.getApodList(any()) } returns Single.just(listOf(emptyAstronomyPic()))
+
+        val ts = TestScheduler()
+        RxJavaPlugins.setIoSchedulerHandler { ts }
+        bc.onZeroItemsLoaded()
+        bc.onItemAtEndLoaded(emptyAstronomyPic().copy(date = "2019-08-05"))
+        ts.advanceTimeBy(5, TimeUnit.SECONDS)
+        verify(exactly = 1) { api.getApodList(allAny()) }
+
+        RxJavaPlugins.reset()
+    }
 }
