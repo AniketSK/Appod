@@ -1,13 +1,14 @@
 package com.aniketkadam.appod.mainscreen.data
 
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import com.aniketkadam.appod.data.ApodApi
 import com.aniketkadam.appod.data.AstronomyPic
 import com.aniketkadam.appod.data.database.AstronomyPicDao
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import org.joda.time.LocalDate
-
 import javax.inject.Inject
 
 class ApodNetworkBoundaryCallback @Inject constructor(
@@ -18,6 +19,10 @@ class ApodNetworkBoundaryCallback @Inject constructor(
     )
 ) :
     PagedList.BoundaryCallback<AstronomyPic>() {
+
+    private val _networkCallState = MutableLiveData<ApodCallState>().apply { ApodCallState.Idle }
+    val networkCallState
+        get() = _networkCallState
 
     private var loadingMoreItems: Disposable? = null
 
@@ -39,12 +44,22 @@ class ApodNetworkBoundaryCallback @Inject constructor(
      */
     override fun onItemAtEndLoaded(itemAtEnd: AstronomyPic) {
         super.onItemAtEndLoaded(itemAtEnd)
+
+        if (_networkCallState.value == ApodCallState.Loading) return
+        _networkCallState.value = ApodCallState.Loading
+
         loadingMoreItems =
             api.getApodList(getNextItemsToLoad(itemAtEnd)) // dependent on loading items in the view in descending order!!
                 .map(dao::insert)
                 .subscribeOn(Schedulers.io())
-                .subscribe()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { _networkCallState.value = ApodCallState.Success },
+                    { _networkCallState.value = ApodCallState.Error(it) }
+                )
+
     }
+
 
     /**
      * The correct date, assuming that you have items in descending order only and you're going to load items further in the past:
@@ -58,4 +73,11 @@ class ApodNetworkBoundaryCallback @Inject constructor(
             dateOfLastItem.minusDays(1).toString()
         )
     }
+}
+
+sealed class ApodCallState {
+    object Idle : ApodCallState()
+    object Loading : ApodCallState()
+    object Success : ApodCallState()
+    data class Error(val e: Throwable) : ApodCallState()
 }
