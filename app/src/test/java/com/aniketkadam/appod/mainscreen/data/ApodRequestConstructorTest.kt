@@ -31,4 +31,5 @@ class ApodRequestConstructorTest {
     fun `creating an apod request date with an end date earlier than the start date is prevented`() {
         ApodRequestDates("2019-01-15", "2019-01-06")
     }
+
 }
