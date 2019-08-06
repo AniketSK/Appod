@@ -28,10 +28,7 @@ class ApodNetworkBoundaryCallback @Inject constructor(
 
     private val initalLoad by lazy {
         // Get from the network and store in the database
-        api.getApodList(initialRequestDates)
-            .map(dao::insert)
-            .subscribeOn(Schedulers.io())
-            .subscribe()
+        loadDataFromNetAndStoreIfRequired(initialRequestDates)
     }
 
     override fun onZeroItemsLoaded() {
@@ -45,11 +42,15 @@ class ApodNetworkBoundaryCallback @Inject constructor(
     override fun onItemAtEndLoaded(itemAtEnd: AstronomyPic) {
         super.onItemAtEndLoaded(itemAtEnd)
 
+        loadDataFromNetAndStoreIfRequired(getNextItemsToLoad(itemAtEnd))
+    }
+
+    private fun loadDataFromNetAndStoreIfRequired(requestDates: ApodRequestDates) {
         if (_networkCallState.value == ApodCallState.Loading) return
         _networkCallState.value = ApodCallState.Loading
 
         loadingMoreItems =
-            api.getApodList(getNextItemsToLoad(itemAtEnd)) // dependent on loading items in the view in descending order!!
+            api.getApodList(requestDates) // dependent on loading items in the view in descending order!!
                 .map(dao::insert)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
