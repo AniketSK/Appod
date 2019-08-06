@@ -1,5 +1,6 @@
 package com.aniketkadam.appod.mainscreen.data
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import com.aniketkadam.appod.data.ApodApi
@@ -9,9 +10,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import org.joda.time.LocalDate
-import javax.inject.Inject
 
-class ApodNetworkBoundaryCallback @Inject constructor(
+class ApodNetworkBoundaryCallback constructor(
     private val api: ApodApi,
     private val dao: AstronomyPicDao,
     private val initialRequestDates: ApodRequestDates = ApodRequestConstructor().getDatesForNumItemsStartingToday(
@@ -21,7 +21,7 @@ class ApodNetworkBoundaryCallback @Inject constructor(
     PagedList.BoundaryCallback<AstronomyPic>() {
 
     private val _networkCallState = MutableLiveData<ApodCallState>().apply { ApodCallState.Idle }
-    val networkCallState
+    val networkCallState: LiveData<ApodCallState>
         get() = _networkCallState
 
     private var loadingMoreItems: Disposable? = null
