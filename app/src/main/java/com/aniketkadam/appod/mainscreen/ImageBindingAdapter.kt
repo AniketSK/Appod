@@ -7,11 +7,12 @@ import com.bumptech.glide.Glide
 
 object ImageBindingAdapter {
 
+    @JvmStatic
     @BindingAdapter("imageUrl")
-    fun bindImage(view: ImageView, url: String?) {
-        url?.let {
+    fun loadImage(view: ImageView, imageUrl: String?) {
+        imageUrl?.let {
             Glide.with(view.context)
-                .load(url).fitCenter()
+                .load(imageUrl).fitCenter()
                 .placeholder(CircularProgressDrawable(view.context).apply {
                     strokeWidth = 5f
                     centerRadius = 30f
