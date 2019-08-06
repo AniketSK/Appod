@@ -82,4 +82,11 @@ class ApodNetworkBoundaryCallbackTestInstrumented {
 
         RxJavaPlugins.reset()
     }
+
+    @Test
+    fun `calls to onItemAtEndLoaded work in case of the previous call to onZeroItemsLoaded succeeding`() {
+        bc.onZeroItemsLoaded()
+        bc.onItemAtEndLoaded(emptyAstronomyPic().copy(date = "2019-08-05"))
+        verify(exactly = 2) { api.getApodList(any()) }
+    }
 }
