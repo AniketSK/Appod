@@ -25,3 +25,7 @@ fun <T> getValueForLiveData(liveData: LiveData<T>): T {
     @Suppress("UNCHECKED_CAST")
     return data[0] as T
 }
+
+fun emptyAstronomyPic(): AstronomyPic {
+    return AstronomyPic("", "", "", "", "")
+}
