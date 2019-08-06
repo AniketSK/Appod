@@ -140,4 +140,6 @@ dependencies {
     implementation navigation.ui
 
     implementation time.lib
+
+    testImplementation mockk.lib
 }
