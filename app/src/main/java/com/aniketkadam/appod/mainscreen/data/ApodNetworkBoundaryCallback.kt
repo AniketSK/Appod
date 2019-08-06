@@ -4,6 +4,7 @@ import androidx.paging.PagedList
 import com.aniketkadam.appod.data.ApodApi
 import com.aniketkadam.appod.data.AstronomyPic
 import com.aniketkadam.appod.data.database.AstronomyPicDao
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import org.joda.time.LocalDate
 
@@ -17,6 +18,8 @@ class ApodNetworkBoundaryCallback @Inject constructor(
     )
 ) :
     PagedList.BoundaryCallback<AstronomyPic>() {
+
+    private var loadingMoreItems: Disposable? = null
 
     private val initalLoad by lazy {
         // Get from the network and store in the database
@@ -36,7 +39,11 @@ class ApodNetworkBoundaryCallback @Inject constructor(
      */
     override fun onItemAtEndLoaded(itemAtEnd: AstronomyPic) {
         super.onItemAtEndLoaded(itemAtEnd)
-        api.getApodList(getNextItemsToLoad(itemAtEnd)) // dependent on loading items in the view in descending order!!
+        loadingMoreItems =
+            api.getApodList(getNextItemsToLoad(itemAtEnd)) // dependent on loading items in the view in descending order!!
+                .map(dao::insert)
+                .subscribeOn(Schedulers.io())
+                .subscribe()
     }
 
     /**
