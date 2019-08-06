@@ -10,7 +10,10 @@ import com.aniketkadam.appod.mainscreen.vm.MainVm
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
+import javax.inject.Named
 
+const val MAIN_VM = "mainactivityVm"
+const val MAIN_FRAGMENT_VM = "mainfragmentvm"
 @Module
 class MainActivityModule {
     @Provides
@@ -20,6 +23,12 @@ class MainActivityModule {
     fun provideApodApi(retrofit: Retrofit): ApodApi = retrofit.create(ApodApi::class.java)
 
     @Provides
+    @Named(MAIN_VM)
     fun provideMainVm(mainActivity: MainActivity, factory: AppodViewModelFactory): MainVm =
         ViewModelProviders.of(mainActivity, factory).get(MainVm::class.java)
+
+    @Provides
+    @Named(MAIN_FRAGMENT_VM)
+    fun provideFragmentVm(mainActivity: MainActivity): MainVm =
+        ViewModelProviders.of(mainActivity).get(MainVm::class.java)
 }
