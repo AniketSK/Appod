@@ -11,7 +11,7 @@ import javax.inject.Named
 class MainActivity : DaggerAppCompatActivity() {
 
     @Inject
-    @Named(MAIN_VM)
+    @field:Named(MAIN_VM)
     lateinit var mainVm: MainVm
 
     override fun onCreate(savedInstanceState: Bundle?) {

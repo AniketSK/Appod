@@ -15,7 +15,7 @@ import javax.inject.Named
 
 class ListFragment : DaggerFragment() {
     @Inject
-    @Named(MAIN_FRAGMENT_VM)
+    @field:Named(MAIN_FRAGMENT_VM)
     lateinit var mainVm: MainVm
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
