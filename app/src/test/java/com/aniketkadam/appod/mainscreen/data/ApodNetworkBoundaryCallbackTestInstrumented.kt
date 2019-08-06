@@ -9,6 +9,8 @@ import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.verify
 import io.reactivex.Single
+import io.reactivex.plugins.RxJavaPlugins
+import io.reactivex.schedulers.TestScheduler
 import net.danlew.android.joda.JodaTimeAndroid
 import org.hamcrest.Matchers.equalTo
 import org.junit.Assert.assertThat
@@ -16,6 +18,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import java.util.concurrent.TimeUnit
 
 @RunWith(RobolectricTestRunner::class)
 class ApodNetworkBoundaryCallbackTestInstrumented {
@@ -50,5 +53,19 @@ class ApodNetworkBoundaryCallbackTestInstrumented {
         every { api.getApodList(any()) } returns Single.just(listOf(emptyAstronomyPic()))
         bc.onItemAtEndLoaded(emptyAstronomyPic().copy(date = "2019-08-05"))
         verify(exactly = 1) { dao.insert(allAny()) }
+    }
+
+    @Test
+    fun `onItemAtEndLoaded should not fire twice for calls while one is in progress`() {
+        every { api.getApodList(any()) } returns Single.just(listOf(emptyAstronomyPic()))
+
+        val ts = TestScheduler()
+        RxJavaPlugins.setIoSchedulerHandler { ts }
+        bc.onItemAtEndLoaded(emptyAstronomyPic().copy(date = "2019-08-05"))
+        bc.onItemAtEndLoaded(emptyAstronomyPic().copy(date = "2019-08-05"))
+        ts.advanceTimeBy(5, TimeUnit.SECONDS)
+        verify(exactly = 1) { dao.insert(allAny()) }
+
+        RxJavaPlugins.reset()
     }
 }
