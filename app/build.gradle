@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
@@ -146,4 +145,5 @@ dependencies {
     implementation time.lib
 
     testImplementation mockk.lib
+    androidTestImplementation mockk.android
 }
