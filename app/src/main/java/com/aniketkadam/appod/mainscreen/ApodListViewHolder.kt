@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aniketkadam.appod.data.AstronomyPic
 import com.aniketkadam.appod.databinding.MainListApodItemBinding
 
-class ApodViewHolder(
+class ApodListViewHolder(
     private val binding: MainListApodItemBinding,
     private val onItemClickedCallback: (Int) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {

@@ -38,7 +38,7 @@ class DetailFragment : DaggerFragment() {
             gridRecyclerView
         }
 
-        val adapter = PagedAdapter(DETAIL_FRAGMENT_VIEW_TYPE) {
+        val adapter = PagedDetailAdapter {
             mainVm.setItemSelectedPosition(
                 PositionFragment(
                     ActiveFragmentPosition.LIST_FRAGMENT,

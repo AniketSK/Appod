@@ -30,7 +30,7 @@ class ListFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = PagedAdapter(LIST_FRAGMENT_VIEW_TYPE) {
+        val adapter = PagedListAdapter {
             mainVm.setItemSelectedPosition(
                 PositionFragment(
                     ActiveFragmentPosition.DETAIL_FRAGMENT,
