@@ -12,7 +12,7 @@ object ImageBindingAdapter {
     fun loadImage(view: ImageView, imageUrl: String?) {
         imageUrl?.let {
             Glide.with(view.context)
-                .load(imageUrl).fitCenter()
+                .load(imageUrl).fitCenter().centerCrop()
                 .placeholder(CircularProgressDrawable(view.context).apply {
                     strokeWidth = 5f
                     centerRadius = 30f
