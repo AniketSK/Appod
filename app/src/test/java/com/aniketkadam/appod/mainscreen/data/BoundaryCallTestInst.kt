@@ -4,6 +4,7 @@ import androidx.test.core.app.ApplicationProvider
 import com.aniketkadam.appod.data.ApodApi
 import com.aniketkadam.appod.data.database.AstronomyPicDao
 import com.aniketkadam.appod.data.emptyAstronomyPic
+import com.aniketkadam.appod.data.getValueForLiveData
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -21,7 +22,7 @@ import org.robolectric.RobolectricTestRunner
 import java.util.concurrent.TimeUnit
 
 @RunWith(RobolectricTestRunner::class)
-class ApodNetworkBoundaryCallbackTestInstrumented {
+class BoundaryCallTestInst {
 
     @MockK(relaxed = true)
     lateinit var api: ApodApi
