@@ -19,6 +19,7 @@ class Repository @Inject constructor(private val dao: AstronomyPicDao, private v
 
         val config = PagedList.Config.Builder().setPrefetchDistance(PREFETCH_DISTANCE).setPageSize(PAGE_SIZE)
             .setMaxSize(PAGE_SIZE + PREFETCH_DISTANCE * 2) // this is the minimum it can be
+            .setEnablePlaceholders(true)
             .build()
 
         val boundaryCallback = ApodNetworkBoundaryCallback(apodApi, dao)
