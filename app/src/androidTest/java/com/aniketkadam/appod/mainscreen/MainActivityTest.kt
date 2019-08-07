@@ -35,11 +35,16 @@ class MainActivityTest {
         activityTestRule.launchActivity(null)
         onView(withId(R.id.gridRecyclerView)).perform(
             RecyclerViewActions.actionOnItem<ApodListViewHolder>(
-                hasDescendant(withContentDescription("Sunset Analemma")), click()
+                hasDescendant(withContentDescription("Magellanic Galaxy NGC 55")), scrollTo()
             )
         )
-        onView(withContentDescription("Sunset Analemma")).check(matches(isDisplayed()))
-        onView(withText("Sunset Analemma")).check(matches(isDisplayed()))
+        onView(withId(R.id.gridRecyclerView)).perform(
+            RecyclerViewActions.actionOnItem<ApodListViewHolder>(
+                hasDescendant(withContentDescription("Magellanic Galaxy NGC 55")), click()
+            )
+        )
+        onView(withContentDescription("Magellanic Galaxy NGC 55")).check(matches(isDisplayed()))
+        onView(withText("Magellanic Galaxy NGC 55")).check(matches(isDisplayed()))
     }
 
 
@@ -48,16 +53,30 @@ class MainActivityTest {
         activityTestRule.launchActivity(null)
         onView(withId(R.id.gridRecyclerView)).perform(
             RecyclerViewActions.actionOnItem<ApodDetailViewHolder>(
-                hasDescendant(withContentDescription("Rumors of a Dark Universe")),
+                hasDescendant(withContentDescription("HDR: Earth's Circular Shadow on the Moon")),
+                scrollTo()
+            )
+        )
+        onView(withId(R.id.gridRecyclerView)).perform(
+            RecyclerViewActions.actionOnItem<ApodDetailViewHolder>(
+                hasDescendant(withContentDescription("HDR: Earth's Circular Shadow on the Moon")),
                 click()
             )
         )
         onView(withId(R.id.gridRecyclerView)).perform(
             RecyclerViewActions.actionOnItem<ApodDetailViewHolder>(
-                hasDescendant(withContentDescription("The Local Void in the Nearby Universe")), click()
+                hasDescendant(withContentDescription("Birds During a Total Solar Eclipse")),
+                scrollTo()
             )
         )
-        onView(withContentDescription("The Local Void in the Nearby Universe")).check(matches(isDisplayed()))
+        onView(withId(R.id.gridRecyclerView)).perform(
+            RecyclerViewActions.actionOnItem<ApodDetailViewHolder>(
+                hasDescendant(withContentDescription("Birds During a Total Solar Eclipse")),
+                click()
+            )
+        )
+
+        onView(withContentDescription("Birds During a Total Solar Eclipse")).check(matches(isDisplayed()))
     }
 
     @Test
@@ -65,17 +84,25 @@ class MainActivityTest {
         activityTestRule.launchActivity(null)
         onView(withId(R.id.gridRecyclerView)).perform(
             RecyclerViewActions.actionOnItem<ApodDetailViewHolder>(
-                hasDescendant(withContentDescription("The Local Void in the Nearby Universe")),
+                hasDescendant(withContentDescription("HDR: Earth's Circular Shadow on the Moon")),
+                scrollTo()
+            )
+        )
+        onView(withId(R.id.gridRecyclerView)).perform(
+            RecyclerViewActions.actionOnItem<ApodDetailViewHolder>(
+                hasDescendant(withContentDescription("HDR: Earth's Circular Shadow on the Moon")),
                 click()
             )
         )
         onView(withId(R.id.gridRecyclerView)).perform(
             RecyclerViewActions.actionOnItem<ApodDetailViewHolder>(
-                hasDescendant(withContentDescription("A View Toward M106")), scrollTo()
+                hasDescendant(withContentDescription("Birds During a Total Solar Eclipse")),
+                scrollTo()
             )
         )
         pressBack()
-        onView(withContentDescription("A View Toward M106")).check(matches(isDisplayed()))
+
+        onView(withContentDescription("Birds During a Total Solar Eclipse")).check(matches(isDisplayed()))
     }
 
 }

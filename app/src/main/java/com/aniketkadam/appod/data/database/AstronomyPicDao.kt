@@ -15,6 +15,6 @@ interface AstronomyPicDao {
     @Query("SELECT * from AstronomyPic")
     fun getAstronomyPics(): LiveData<List<AstronomyPic>>
 
-    @Query("SELECT * FROM AstronomyPic")
+    @Query("SELECT * FROM AstronomyPic ORDER BY date(date) DESC")
     fun getAstronomyPicsDataSource(): DataSource.Factory<Int, AstronomyPic>
 }
