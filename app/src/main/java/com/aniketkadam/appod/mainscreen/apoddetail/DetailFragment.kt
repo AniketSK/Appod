@@ -37,9 +37,7 @@ class DetailFragment : DaggerFragment() {
         layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         gridRecyclerView.layoutManager = layoutManager
         // Snap each linear item into the center when scrolling.
-        LinearSnapHelper().apply {
-            attachToRecyclerView(gridRecyclerView)
-        }
+        LinearSnapHelper().apply { attachToRecyclerView(gridRecyclerView) }
 
         val adapter = PagedDetailAdapter {
             mainVm.setItemSelectedPosition(
