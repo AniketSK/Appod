@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import com.aniketkadam.appod.R
 import com.aniketkadam.appod.mainscreen.di.MAIN_FRAGMENT_VM
 import com.aniketkadam.appod.mainscreen.vm.MainVm
@@ -26,6 +27,7 @@ class ListFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = PagedAdapter()
+        gridRecyclerView.layoutManager = GridLayoutManager(context, 3)
         gridRecyclerView.adapter = adapter
 
         mainVm.apodList.observe(this, Observer { adapter.submitList(it) })
