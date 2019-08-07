@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +25,7 @@ class DetailFragment : DaggerFragment() {
     @field:Named(MAIN_FRAGMENT_VM)
     lateinit var mainVm: MainVm
     val args by navArgs<DetailFragmentArgs>()
+    lateinit var layoutManager: LinearLayoutManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
@@ -32,7 +34,8 @@ class DetailFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        gridRecyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        gridRecyclerView.layoutManager = layoutManager
         // Snap each linear item into the center when scrolling.
         LinearSnapHelper().apply {
             attachToRecyclerView(gridRecyclerView)
@@ -49,5 +52,19 @@ class DetailFragment : DaggerFragment() {
         gridRecyclerView.adapter = adapter
         mainVm.apodList.observe(this, Observer { adapter.submitList(it) })
         gridRecyclerView.scrollToPosition(args.adapterPosition)
+
+        requireActivity().onBackPressedDispatcher.addCallback(this, getBackPressedCallback())
     }
+
+    private fun getBackPressedCallback(): OnBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            mainVm.setItemSelectedPosition(
+                PositionFragment(
+                    ActiveFragmentPosition.LIST_FRAGMENT,
+                    layoutManager.findFirstVisibleItemPosition()
+                )
+            )
+        }
+    }
+
 }
