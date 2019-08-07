@@ -1,7 +1,9 @@
 package com.aniketkadam.appod.mainscreen
 
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -57,4 +59,23 @@ class MainActivityTest {
         )
         onView(withContentDescription("The Local Void in the Nearby Universe")).check(matches(isDisplayed()))
     }
+
+    @Test
+    fun opening_a_detail_view_scrolling_then_going_back_by_pressing_the_back_button_opens_on_the_same_view_in_the_main_list() {
+        activityTestRule.launchActivity(null)
+        onView(withId(R.id.gridRecyclerView)).perform(
+            RecyclerViewActions.actionOnItem<ApodDetailViewHolder>(
+                hasDescendant(withContentDescription("The Local Void in the Nearby Universe")),
+                click()
+            )
+        )
+        onView(withId(R.id.gridRecyclerView)).perform(
+            RecyclerViewActions.actionOnItem<ApodDetailViewHolder>(
+                hasDescendant(withContentDescription("A View Toward M106")), scrollTo()
+            )
+        )
+        pressBack()
+        onView(withContentDescription("A View Toward M106")).check(matches(isDisplayed()))
+    }
+
 }
