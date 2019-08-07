@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.aniketkadam.appod.R
-import com.aniketkadam.appod.mainscreen.DetailFragmentArgs
 import com.aniketkadam.appod.mainscreen.di.MAIN_FRAGMENT_VM
 import com.aniketkadam.appod.mainscreen.vm.ActiveFragmentPosition
 import com.aniketkadam.appod.mainscreen.vm.MainVm

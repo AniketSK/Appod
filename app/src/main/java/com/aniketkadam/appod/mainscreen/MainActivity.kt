@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.aniketkadam.appod.R
+import com.aniketkadam.appod.mainscreen.apoddetail.DetailFragmentDirections
+import com.aniketkadam.appod.mainscreen.apodlist.ListFragmentDirections
 import com.aniketkadam.appod.mainscreen.di.MAIN_VM
 import com.aniketkadam.appod.mainscreen.vm.ActiveFragmentPosition
 import com.aniketkadam.appod.mainscreen.vm.MainVm
