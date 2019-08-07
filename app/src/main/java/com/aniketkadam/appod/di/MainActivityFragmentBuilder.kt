@@ -1,7 +1,7 @@
 package com.aniketkadam.appod.di
 
-import com.aniketkadam.appod.mainscreen.DetailFragment
-import com.aniketkadam.appod.mainscreen.ListFragment
+import com.aniketkadam.appod.mainscreen.apoddetail.DetailFragment
+import com.aniketkadam.appod.mainscreen.apodlist.ListFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

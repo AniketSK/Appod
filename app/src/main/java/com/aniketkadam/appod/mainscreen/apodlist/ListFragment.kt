@@ -1,4 +1,4 @@
-package com.aniketkadam.appod.mainscreen
+package com.aniketkadam.appod.mainscreen.apodlist
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aniketkadam.appod.R
+import com.aniketkadam.appod.mainscreen.ListFragmentArgs
 import com.aniketkadam.appod.mainscreen.di.MAIN_FRAGMENT_VM
 import com.aniketkadam.appod.mainscreen.vm.ActiveFragmentPosition
 import com.aniketkadam.appod.mainscreen.vm.MainVm

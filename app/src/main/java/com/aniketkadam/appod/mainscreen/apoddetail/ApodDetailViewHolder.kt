@@ -1,4 +1,4 @@
-package com.aniketkadam.appod.mainscreen
+package com.aniketkadam.appod.mainscreen.apoddetail
 
 import androidx.recyclerview.widget.RecyclerView
 import com.aniketkadam.appod.data.AstronomyPic

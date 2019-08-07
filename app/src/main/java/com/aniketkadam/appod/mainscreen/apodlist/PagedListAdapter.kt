@@ -1,4 +1,4 @@
-package com.aniketkadam.appod.mainscreen
+package com.aniketkadam.appod.mainscreen.apodlist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,6 +7,7 @@ import androidx.paging.PagedListAdapter
 import com.aniketkadam.appod.R
 import com.aniketkadam.appod.data.AstronomyPic
 import com.aniketkadam.appod.databinding.MainListApodItemBinding
+import com.aniketkadam.appod.mainscreen.PagedAdapterDiffs
 
 class PagedListAdapter(private val onItemClickedCallback: (Int) -> Unit) :
     PagedListAdapter<AstronomyPic, ApodListViewHolder>(PagedAdapterDiffs.DIFF_CALLBACK) {
