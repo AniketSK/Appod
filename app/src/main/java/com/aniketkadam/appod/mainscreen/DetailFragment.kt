@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +23,7 @@ class DetailFragment : DaggerFragment() {
     @Inject
     @field:Named(MAIN_FRAGMENT_VM)
     lateinit var mainVm: MainVm
+    val args by navArgs<DetailFragmentArgs>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
@@ -46,5 +48,6 @@ class DetailFragment : DaggerFragment() {
         }
         gridRecyclerView.adapter = adapter
         mainVm.apodList.observe(this, Observer { adapter.submitList(it) })
+        gridRecyclerView.scrollToPosition(args.adapterPosition)
     }
 }

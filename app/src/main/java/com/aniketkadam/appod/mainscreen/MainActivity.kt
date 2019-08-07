@@ -27,8 +27,16 @@ class MainActivity : DaggerAppCompatActivity() {
 
     private fun setActive(positionFragment: PositionFragment?) = with(findNavController(R.id.nav_host)) {
         when (positionFragment?.fragment) {
-            ActiveFragmentPosition.LIST_FRAGMENT -> navigate(DetailFragmentDirections.actionDetailFragmentToListFragment())
-            ActiveFragmentPosition.DETAIL_FRAGMENT -> navigate(ListFragmentDirections.actionListFragmentToDetailFragment())
+            ActiveFragmentPosition.LIST_FRAGMENT -> navigate(
+                DetailFragmentDirections.actionDetailFragmentToListFragment().setAdapterPosition(
+                    positionFragment.position
+                )
+            )
+            ActiveFragmentPosition.DETAIL_FRAGMENT -> navigate(
+                ListFragmentDirections.actionListFragmentToDetailFragment().setAdapterPosition(
+                    positionFragment.position
+                )
+            )
             else -> throw IllegalArgumentException("Unknown Navigation Destiation")
         }
     }
