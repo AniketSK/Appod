@@ -9,6 +9,7 @@ import com.aniketkadam.appod.data.database.AstronomyPicDao
 import javax.inject.Inject
 
 const val PREFETCH_DISTANCE = 50
+const val PAGE_SIZE = PREFETCH_DISTANCE
 
 class Repository @Inject constructor(private val dao: AstronomyPicDao, private val apodApi: ApodApi) {
 
@@ -16,8 +17,8 @@ class Repository @Inject constructor(private val dao: AstronomyPicDao, private v
 
         val localSource = dao.getAstronomyPicsDataSource()
 
-        val config = PagedList.Config.Builder().setPrefetchDistance(PREFETCH_DISTANCE).setPageSize(PREFETCH_DISTANCE)
-            .setMaxSize(PREFETCH_DISTANCE * 2)
+        val config = PagedList.Config.Builder().setPrefetchDistance(PREFETCH_DISTANCE).setPageSize(PAGE_SIZE)
+            .setMaxSize(PAGE_SIZE + PREFETCH_DISTANCE * 2) // this is the minimum it can be
             .build()
 
         val boundaryCallback = ApodNetworkBoundaryCallback(apodApi, dao)
