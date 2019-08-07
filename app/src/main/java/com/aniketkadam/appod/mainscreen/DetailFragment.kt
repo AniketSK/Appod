@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.aniketkadam.appod.R
 import com.aniketkadam.appod.mainscreen.di.MAIN_FRAGMENT_VM
@@ -30,6 +31,11 @@ class DetailFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         gridRecyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        // Snap each linear item into the center when scrolling.
+        LinearSnapHelper().apply {
+            gridRecyclerView
+        }
+
         val adapter = PagedAdapter(DETAIL_FRAGMENT_VIEW_TYPE) {
             mainVm.setItemSelectedPosition(
                 PositionFragment(
