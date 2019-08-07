@@ -38,6 +38,7 @@ class DetailFragment : DaggerFragment() {
                 )
             )
         }
+        gridRecyclerView.adapter = adapter
         mainVm.apodList.observe(this, Observer { adapter.submitList(it) })
     }
 }
