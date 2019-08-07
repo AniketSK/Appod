@@ -46,8 +46,11 @@ class ApodNetworkBoundaryCallback constructor(
     }
 
     private fun loadDataFromNetAndStoreIfRequired(requestDates: ApodRequestDates) {
-        if (_networkCallState.value == ApodCallState.Loading) return
-        _networkCallState.value = ApodCallState.Loading
+        if (_networkCallState.value == ApodCallState.Loading) {
+            return
+        } else {
+            _networkCallState.value = ApodCallState.Loading
+        }
 
         loadingMoreItems =
             api.getApodList(requestDates) // dependent on loading items in the view in descending order!!
