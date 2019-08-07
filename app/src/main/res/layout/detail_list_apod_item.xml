@@ -8,15 +8,17 @@
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="@{data.title}"/>
         <ImageView
                 android:contentDescription="@{data.title}"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 app:imageUrl="@{data.url}"
                 android:adjustViewBounds="true"
                 tools:srcCompat="@tools:sample/backgrounds/scenic"/>
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:text="@{data.title}"/>
+
     </LinearLayout>
 </layout>
