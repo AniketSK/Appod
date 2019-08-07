@@ -9,17 +9,30 @@ import com.aniketkadam.appod.R
 import com.aniketkadam.appod.data.AstronomyPic
 import com.aniketkadam.appod.databinding.MainListApodItemBinding
 
-class PagedAdapter(private val onItemClickedCallback: (Int) -> Unit) :
+const val LIST_FRAGMENT_VIEW_TYPE = 1
+const val DETAIL_FRAGMENT_VIEW_TYPE = 2
+
+class PagedAdapter(private val viewType: Int, private val onItemClickedCallback: (Int) -> Unit) :
     PagedListAdapter<AstronomyPic, ApodViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ApodViewHolder {
         val binding = DataBindingUtil.inflate<MainListApodItemBinding>(
             LayoutInflater.from(parent.context),
-            R.layout.main_list_apod_item,
+            getIntendedView(viewType),
             parent,
             false
         )
         return ApodViewHolder(binding, onItemClickedCallback)
+    }
+
+    private fun getIntendedView(viewType: Int): Int = when (viewType) {
+        LIST_FRAGMENT_VIEW_TYPE -> R.layout.main_list_apod_item
+        DETAIL_FRAGMENT_VIEW_TYPE -> R.layout.detail_list_apod_item
+        else -> throw IllegalArgumentException("Unknown view type")
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return viewType
     }
 
     override fun onBindViewHolder(holder: ApodViewHolder, position: Int) {

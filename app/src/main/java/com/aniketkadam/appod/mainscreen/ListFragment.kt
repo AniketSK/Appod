@@ -26,7 +26,7 @@ class ListFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = PagedAdapter { mainVm.setItemSelectedPosition(it) }
+        val adapter = PagedAdapter(LIST_FRAGMENT_VIEW_TYPE) { mainVm.setItemSelectedPosition(it) }
         gridRecyclerView.layoutManager = GridLayoutManager(context, 3)
         gridRecyclerView.adapter = adapter
 
