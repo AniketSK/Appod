@@ -2,8 +2,10 @@ package com.aniketkadam.appod.mainscreen
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.aniketkadam.appod.R
 import com.aniketkadam.appod.mainscreen.di.MAIN_VM
+import com.aniketkadam.appod.mainscreen.vm.ActiveFragmentPosition
 import com.aniketkadam.appod.mainscreen.vm.MainVm
 import com.aniketkadam.appod.mainscreen.vm.PositionFragment
 import dagger.android.support.DaggerAppCompatActivity
@@ -23,8 +25,12 @@ class MainActivity : DaggerAppCompatActivity() {
         mainVm.selectedPositionAndFragment.observe(this, Observer { setActive(it) })
     }
 
-    private fun setActive(it: PositionFragment?) {
-
+    private fun setActive(positionFragment: PositionFragment?) = with(findNavController(R.id.nav_host)) {
+        when (positionFragment?.fragment) {
+            ActiveFragmentPosition.LIST_FRAGMENT -> navigate(DetailFragmentDirections.actionDetailFragmentToListFragment())
+            ActiveFragmentPosition.DETAIL_FRAGMENT -> navigate(ListFragmentDirections.actionListFragmentToDetailFragment())
+            else -> throw IllegalArgumentException("Unknown Navigation Destiation")
+        }
     }
 
 }
