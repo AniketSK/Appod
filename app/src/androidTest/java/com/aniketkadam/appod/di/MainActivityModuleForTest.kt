@@ -22,6 +22,7 @@ class MainActivityModuleForTest {
     @Provides
     fun provideApodApi(retrofit: Retrofit): ApodApi = retrofit.create(ApodApi::class.java)
 
+
     @Provides
     @Named(MAIN_VM)
     fun provideMainVm(mainActivity: MainActivity, factory: AppodViewModelFactory): MainVm =
