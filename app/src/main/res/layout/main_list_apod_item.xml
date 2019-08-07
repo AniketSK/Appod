@@ -6,8 +6,8 @@
         <variable name="data" type="com.aniketkadam.appod.data.AstronomyPic"/>
     </data>
     <com.google.android.material.card.MaterialCardView
-            android:layout_width="200dp"
-            android:layout_height="110dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
     >
         <ImageView
                 android:contentDescription="@{data.title}"
@@ -16,6 +16,7 @@
                 android:scaleType="centerCrop"
                 app:imageUrl="@{data.url}"
                 tools:srcCompat="@tools:sample/backgrounds/scenic"/>
-
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="@{data.title}"/>
     </com.google.android.material.card.MaterialCardView>
 </layout>
