@@ -8,7 +8,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aniketkadam.appod.R
 import com.aniketkadam.appod.mainscreen.di.MAIN_FRAGMENT_VM
+import com.aniketkadam.appod.mainscreen.vm.ActiveFragmentPosition
 import com.aniketkadam.appod.mainscreen.vm.MainVm
+import com.aniketkadam.appod.mainscreen.vm.PositionFragment
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_layout.*
 import javax.inject.Inject
@@ -26,7 +28,14 @@ class ListFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = PagedAdapter(LIST_FRAGMENT_VIEW_TYPE) { mainVm.setItemSelectedPosition(it) }
+        val adapter = PagedAdapter(LIST_FRAGMENT_VIEW_TYPE) {
+            mainVm.setItemSelectedPosition(
+                PositionFragment(
+                    ActiveFragmentPosition.DETAIL_FRAGMENT,
+                    it
+                )
+            )
+        }
         gridRecyclerView.layoutManager = GridLayoutManager(context, 3)
         gridRecyclerView.adapter = adapter
 

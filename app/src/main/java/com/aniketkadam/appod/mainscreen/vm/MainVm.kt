@@ -14,11 +14,18 @@ class MainVm(private val repository: Repository) : ViewModel() {
     val apodList = repoResult.data
     val networkState = repoResult.networkState
 
-    private val _selectedItemPosition = MutableLiveData<Int>()
-    fun setItemSelectedPosition(position: Int) {
-        _selectedItemPosition.value = position
+    private val _selectedPositionAndFragment = MutableLiveData<PositionFragment>()
+    fun setItemSelectedPosition(positionFragment: PositionFragment) {
+        _selectedPositionAndFragment.value = positionFragment
     }
 
-    val selectedItemPosition: LiveData<Int>
-        get() = _selectedItemPosition
+    val selectedPositionAndFragment: LiveData<PositionFragment>
+        get() = _selectedPositionAndFragment
 }
+
+sealed class ActiveFragmentPosition {
+    object LIST_FRAGMENT : ActiveFragmentPosition()
+    object DETAIL_FRAGMENT : ActiveFragmentPosition()
+}
+
+data class PositionFragment(val fragment: ActiveFragmentPosition, val position: Int)

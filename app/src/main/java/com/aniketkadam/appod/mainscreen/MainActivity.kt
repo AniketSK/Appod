@@ -1,9 +1,11 @@
 package com.aniketkadam.appod.mainscreen
 
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import com.aniketkadam.appod.R
 import com.aniketkadam.appod.mainscreen.di.MAIN_VM
 import com.aniketkadam.appod.mainscreen.vm.MainVm
+import com.aniketkadam.appod.mainscreen.vm.PositionFragment
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 import javax.inject.Named
@@ -17,5 +19,12 @@ class MainActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        mainVm.selectedPositionAndFragment.observe(this, Observer { setActive(it) })
     }
+
+    private fun setActive(it: PositionFragment?) {
+
+    }
+
 }

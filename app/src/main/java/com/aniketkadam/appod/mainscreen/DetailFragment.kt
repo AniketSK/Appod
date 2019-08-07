@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aniketkadam.appod.R
 import com.aniketkadam.appod.mainscreen.di.MAIN_FRAGMENT_VM
+import com.aniketkadam.appod.mainscreen.vm.ActiveFragmentPosition
 import com.aniketkadam.appod.mainscreen.vm.MainVm
+import com.aniketkadam.appod.mainscreen.vm.PositionFragment
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_layout.*
 import javax.inject.Inject
@@ -28,7 +30,14 @@ class DetailFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         gridRecyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-        val adapter = PagedAdapter(DETAIL_FRAGMENT_VIEW_TYPE) { mainVm.setItemSelectedPosition(it) }
+        val adapter = PagedAdapter(DETAIL_FRAGMENT_VIEW_TYPE) {
+            mainVm.setItemSelectedPosition(
+                PositionFragment(
+                    ActiveFragmentPosition.LIST_FRAGMENT,
+                    it
+                )
+            )
+        }
         mainVm.apodList.observe(this, Observer { adapter.submitList(it) })
     }
 }
