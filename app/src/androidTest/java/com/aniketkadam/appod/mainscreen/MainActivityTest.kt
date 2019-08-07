@@ -9,6 +9,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import com.aniketkadam.appod.R
 import com.aniketkadam.appod.mainscreen.apoddetail.ApodDetailViewHolder
+import com.aniketkadam.appod.mainscreen.apodlist.ApodListViewHolder
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -31,7 +32,7 @@ class MainActivityTest {
     fun when_an_item_on_the_main_list_is_clicked_it_opens_the_detail_view_for_that_item() {
         activityTestRule.launchActivity(null)
         onView(withId(R.id.gridRecyclerView)).perform(
-            RecyclerViewActions.actionOnItem<ApodDetailViewHolder>(
+            RecyclerViewActions.actionOnItem<ApodListViewHolder>(
                 hasDescendant(withContentDescription("Sunset Analemma")), click()
             )
         )
@@ -39,4 +40,21 @@ class MainActivityTest {
         onView(withText("Sunset Analemma")).check(matches(isDisplayed()))
     }
 
+
+    @Test
+    fun opening_a_detail_view_scrolling_then_going_back_opens_on_the_same_view_in_the_main_list() {
+        activityTestRule.launchActivity(null)
+        onView(withId(R.id.gridRecyclerView)).perform(
+            RecyclerViewActions.actionOnItem<ApodDetailViewHolder>(
+                hasDescendant(withContentDescription("Rumors of a Dark Universe")),
+                click()
+            )
+        )
+        onView(withId(R.id.gridRecyclerView)).perform(
+            RecyclerViewActions.actionOnItem<ApodDetailViewHolder>(
+                hasDescendant(withContentDescription("The Local Void in the Nearby Universe")), click()
+            )
+        )
+        onView(withContentDescription("The Local Void in the Nearby Universe")).check(matches(isDisplayed()))
+    }
 }
