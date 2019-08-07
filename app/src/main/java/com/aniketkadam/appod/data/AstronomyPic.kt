@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class AstronomyPic(
     val title: String,
     val url: String,
-    val hdurl: String,
+    val hdurl: String?,
     val explanation: String,
     @PrimaryKey val date: String
 )
