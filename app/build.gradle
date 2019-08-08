@@ -66,7 +66,6 @@ dependencies {
     androidTestImplementation adxTestLib.testext
     androidTestImplementation adxTestLib.espresso
     androidTestImplementation adxTestLib.espressoContrib
-    androidTestImplementation adxTestLib.uiautomator
     androidTestImplementation lifecycle.testhelper
     androidTestImplementation room.test
 
@@ -80,7 +79,6 @@ dependencies {
 
     implementation rxjava.lib
     implementation rxjava.android
-    implementation rxjava.bindings
     implementation rxjava.bindingRecyclerview
 
     implementation dagger.lib
@@ -129,8 +127,6 @@ dependencies {
     implementation lifecycle.extensions
     kapt lifecycle.kotlinCompiler
     implementation lifecycle.reactivestreams
-
-    implementation multidex.lib
 
     // Daggermock when used with androidTest, requires the dexOpener to make the classes mockable.
     // mock-maker-inline only works for test, not androidTest. So dexopener and it's instrumentation runner
