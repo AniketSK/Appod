@@ -6,6 +6,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.aniketkadam.appod.data.AstronomyPic
+import io.reactivex.Maybe
 
 @Dao
 interface AstronomyPicDao {
@@ -17,4 +18,7 @@ interface AstronomyPicDao {
 
     @Query("SELECT * FROM AstronomyPic ORDER BY date(date) DESC")
     fun getAstronomyPicsDataSource(): DataSource.Factory<Int, AstronomyPic>
+
+    @Query("SELECT * from AstronomyPic ORDER BY date(date) DESC LIMIT 1")
+    fun getLatestAstronomyPic(): Maybe<AstronomyPic>
 }
