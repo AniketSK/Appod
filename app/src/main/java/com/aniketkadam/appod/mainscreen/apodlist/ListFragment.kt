@@ -35,14 +35,7 @@ class ListFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = PagedListAdapter {
-            mainVm.setItemSelectedPosition(
-                PositionFragment(
-                    ActiveFragmentPosition.DETAIL_FRAGMENT,
-                    it
-                )
-            )
-        }
+        val adapter = getAdapter()
         gridRecyclerView.layoutManager = GridLayoutManager(context, 3)
         gridRecyclerView.adapter = adapter
 
@@ -55,6 +48,15 @@ class ListFragment : DaggerFragment() {
 
         swipeRefreshView.setOnRefreshListener { mainVm.sendRefreshEvent() }
         d = mainVm.refreshEffects.subscribe { renderSwipeRefresh(it) }
+    }
+
+    private fun getAdapter(): PagedListAdapter = PagedListAdapter {
+        mainVm.setItemSelectedPosition(
+            PositionFragment(
+                ActiveFragmentPosition.DETAIL_FRAGMENT,
+                it
+            )
+        )
     }
 
 
