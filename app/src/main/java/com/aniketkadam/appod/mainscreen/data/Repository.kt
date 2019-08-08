@@ -31,6 +31,11 @@ class Repository @Inject constructor(private val dao: AstronomyPicDao, private v
                 .build(), boundaryCallback.networkCallState
         )
     }
+
+    fun getLatestAstronomyPic() = dao.getLatestAstronomyPic()
+    fun getApodsFromRemote(apodRequestDates: ApodRequestDates) = apodApi.getApodList(apodRequestDates)
+    fun saveData(list: List<AstronomyPic>) = dao.insert(list)
+
 }
 
 data class RepoResult(val data: LiveData<PagedList<AstronomyPic>>, val networkState: LiveData<ApodCallState>)

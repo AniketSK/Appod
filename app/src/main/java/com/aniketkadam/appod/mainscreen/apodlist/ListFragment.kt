@@ -13,8 +13,11 @@ import com.aniketkadam.appod.mainscreen.di.MAIN_FRAGMENT_VM
 import com.aniketkadam.appod.mainscreen.vm.ActiveFragmentPosition
 import com.aniketkadam.appod.mainscreen.vm.MainVm
 import com.aniketkadam.appod.mainscreen.vm.PositionFragment
+import com.aniketkadam.appod.mainscreen.vm.RefreshLce
 import dagger.android.support.DaggerFragment
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_layout.*
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -23,6 +26,7 @@ class ListFragment : DaggerFragment() {
     @field:Named(MAIN_FRAGMENT_VM)
     lateinit var mainVm: MainVm
     val args by navArgs<ListFragmentArgs>()
+    lateinit var d: Disposable
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
@@ -44,5 +48,24 @@ class ListFragment : DaggerFragment() {
 
         mainVm.apodList.observe(this, Observer { adapter.submitList(it) })
         gridRecyclerView.scrollToPosition(args.adapterPosition)
+
+        Timber.d("List fragment started")
+        swipeRefreshView.setOnRefreshListener { mainVm.sendRefreshEvent() }
+        d = mainVm.refreshState.subscribe {
+            Timber.d("received ${it.javaClass}")
+            renderSwipeRefresh(it)
+        }
+    }
+
+    private fun renderSwipeRefresh(state: RefreshLce?): Unit = when (state) {
+        is RefreshLce.Loading -> swipeRefreshView.isRefreshing = true
+        is RefreshLce.Success -> swipeRefreshView.isRefreshing = false
+        is RefreshLce.Error -> swipeRefreshView.isRefreshing = false
+        null -> Timber.d("Got an empty on the swipe refreshState view")
+    }
+
+    override fun onDestroy() {
+        d.dispose()
+        super.onDestroy()
     }
 }
