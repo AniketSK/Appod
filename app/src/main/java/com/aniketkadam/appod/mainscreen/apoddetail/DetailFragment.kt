@@ -39,19 +39,21 @@ class DetailFragment : DaggerFragment() {
         // Snap each linear item into the center when scrolling.
         LinearSnapHelper().apply { attachToRecyclerView(gridRecyclerView) }
 
-        val adapter = PagedDetailAdapter {
-            mainVm.setItemSelectedPosition(
-                PositionFragment(
-                    ActiveFragmentPosition.LIST_FRAGMENT,
-                    it
-                )
-            )
-        }
+        val adapter = getAdapter()
         gridRecyclerView.adapter = adapter
         mainVm.apodList.observe(this, Observer { adapter.submitList(it) })
         gridRecyclerView.scrollToPosition(args.adapterPosition)
 
         requireActivity().onBackPressedDispatcher.addCallback(this, getBackPressedCallback())
+    }
+
+    private fun getAdapter(): PagedDetailAdapter = PagedDetailAdapter {
+        mainVm.setItemSelectedPosition(
+            PositionFragment(
+                ActiveFragmentPosition.LIST_FRAGMENT,
+                it
+            )
+        )
     }
 
     private fun getBackPressedCallback(): OnBackPressedCallback = object : OnBackPressedCallback(true) {
