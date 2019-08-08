@@ -62,7 +62,7 @@ class MainVm(private val repository: Repository) : ViewModel() {
         effectRelay.accept(Unit)
     }
 
-    val refreshState = effectRelay.compose(swipeRefreshTransformer)
+    val refreshEffects = effectRelay.compose(swipeRefreshTransformer)
 
 }
 

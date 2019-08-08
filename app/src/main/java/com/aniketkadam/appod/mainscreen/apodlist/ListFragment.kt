@@ -51,7 +51,7 @@ class ListFragment : DaggerFragment() {
 
         Timber.d("List fragment started")
         swipeRefreshView.setOnRefreshListener { mainVm.sendRefreshEvent() }
-        d = mainVm.refreshState.subscribe {
+        d = mainVm.refreshEffects.subscribe {
             Timber.d("received ${it.javaClass}")
             renderSwipeRefresh(it)
         }
@@ -61,7 +61,7 @@ class ListFragment : DaggerFragment() {
         is RefreshLce.Loading -> swipeRefreshView.isRefreshing = true
         is RefreshLce.Success -> swipeRefreshView.isRefreshing = false
         is RefreshLce.Error -> swipeRefreshView.isRefreshing = false
-        null -> Timber.d("Got an empty on the swipe refreshState view")
+        null -> Timber.d("Got an empty on the swipe refreshEffects view")
     }
 
     override fun onDestroy() {

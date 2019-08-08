@@ -44,7 +44,7 @@ class MainVmTestInt {
     @Test
     fun `swipe refresh works when the date is in the past`() {
         every { repository.getLatestAstronomyPic() } returns Maybe.just(emptyAstronomyPic().copy(date = "2019-08-01"))
-        mainVm.refreshState.test()
+        mainVm.refreshEffects.test()
         mainVm.sendRefreshEvent()
         verify(exactly = 1) { repository.getApodsFromRemote(any()) }
         verify(exactly = 1) { repository.saveData(any()) }
@@ -53,7 +53,7 @@ class MainVmTestInt {
     @Test
     fun `swipe refresh does nothing if we're up to date`() {
         every { repository.getLatestAstronomyPic() } returns Maybe.just(emptyAstronomyPic().copy(date = LocalDate.now().toString()))
-        mainVm.refreshState.test()
+        mainVm.refreshEffects.test()
 
         verify(exactly = 0) { repository.getApodsFromRemote(any()) }
     }
@@ -62,7 +62,7 @@ class MainVmTestInt {
     fun `swipe refresh works when the database is empty`() {
 
         every { repository.getLatestAstronomyPic() } returns Maybe.empty()
-        val t = mainVm.refreshState.test()
+        val t = mainVm.refreshEffects.test()
         mainVm.sendRefreshEvent()
         verify(exactly = 1) { repository.getApodsFromRemote(any()) }
         verify(exactly = 1) { repository.saveData(any()) }
@@ -74,7 +74,7 @@ class MainVmTestInt {
         val yesterday = LocalDate.now().minusDays(1).toString()
         val today = LocalDate.now().toString()
         every { repository.getLatestAstronomyPic() } returns Maybe.just(emptyAstronomyPic().copy(date = yesterday))
-        mainVm.refreshState.test()
+        mainVm.refreshEffects.test()
         mainVm.sendRefreshEvent()
         verify(exactly = 1) { repository.getApodsFromRemote(ApodRequestDates(yesterday, today)) }
     }
@@ -84,7 +84,7 @@ class MainVmTestInt {
         val today = LocalDate.now().toString()
         val startDate = LocalDate.now().minusDays(PREFETCH_DISTANCE).toString()
         every { repository.getLatestAstronomyPic() } returns Maybe.empty()
-        mainVm.refreshState.test()
+        mainVm.refreshEffects.test()
         mainVm.sendRefreshEvent()
         verify(exactly = 1) { repository.getApodsFromRemote(ApodRequestDates(startDate, today)) }
     }
@@ -93,7 +93,7 @@ class MainVmTestInt {
     @Test
     fun `loading is shown when the swipe refresh is initiated`() {
         every { repository.getLatestAstronomyPic() } returns Maybe.just(emptyAstronomyPic().copy(date = "2019-08-01"))
-        val q: TestObserver<RefreshLce> = mainVm.refreshState.test().assertSubscribed().assertNotComplete()
+        val q: TestObserver<RefreshLce> = mainVm.refreshEffects.test().assertSubscribed().assertNotComplete()
         q.assertNoValues()
         mainVm.sendRefreshEvent()
         q.assertValues(RefreshLce.Loading, RefreshLce.Success).assertNotComplete()
