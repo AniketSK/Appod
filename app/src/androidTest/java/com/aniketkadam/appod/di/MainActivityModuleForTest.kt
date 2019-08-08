@@ -6,6 +6,7 @@ import com.aniketkadam.appod.data.ApodApi
 import com.aniketkadam.appod.data.AstronomyPic
 import com.aniketkadam.appod.data.database.AstronomyPicDao
 import com.aniketkadam.appod.data.database.AstronomyPicDatabase
+import com.aniketkadam.appod.data.networkhelpers.NetworkAvailability
 import com.aniketkadam.appod.mainscreen.MainActivity
 import com.aniketkadam.appod.mainscreen.data.ApodRequestDates
 import com.aniketkadam.appod.mainscreen.di.MAIN_FRAGMENT_VM
@@ -18,6 +19,7 @@ import dagger.Provides
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
+import io.reactivex.Observable
 import io.reactivex.Single
 import org.joda.time.LocalDate
 import javax.inject.Named
@@ -59,4 +61,6 @@ class MainActivityModuleForTest {
     fun provideFragmentVm(mainActivity: MainActivity): MainVm =
         ViewModelProviders.of(mainActivity).get(MainVm::class.java)
 
+    @Provides
+    fun provideNetworkAvailability(): Observable<NetworkAvailability> = Observable.just(NetworkAvailability(true))
 }
