@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.aniketkadam.appod">
+          package="com.aniketkadam.appod"
+            android:installLocation="preferExternal">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
