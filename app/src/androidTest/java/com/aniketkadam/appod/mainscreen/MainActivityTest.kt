@@ -49,7 +49,7 @@ class MainActivityTest {
 
 
     @Test
-    fun opening_a_detail_view_scrolling_then_going_back_opens_on_the_same_view_in_the_main_list() {
+    fun opening_a_detail_view_then_scrolling_further_then_going_back_opens_on_the_last_scrolled_view_but_in_the_main_list() {
         activityTestRule.launchActivity(null)
         onView(withId(R.id.gridRecyclerView)).perform(
             RecyclerViewActions.actionOnItem<ApodDetailViewHolder>(
