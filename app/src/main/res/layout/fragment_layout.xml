@@ -5,10 +5,20 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefreshView" android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/gridRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-        />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                      android:orientation="vertical">
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/gridRecyclerView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+            />
+            <TextView android:id="@+id/emptyView"
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:gravity="center"
+                      android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                      android:text="@string/no_data"
+            />
+        </LinearLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

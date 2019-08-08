@@ -8,7 +8,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aniketkadam.appod.R
-
 import com.aniketkadam.appod.mainscreen.di.MAIN_FRAGMENT_VM
 import com.aniketkadam.appod.mainscreen.vm.ActiveFragmentPosition
 import com.aniketkadam.appod.mainscreen.vm.MainVm
@@ -46,14 +45,28 @@ class ListFragment : DaggerFragment() {
         gridRecyclerView.layoutManager = GridLayoutManager(context, 3)
         gridRecyclerView.adapter = adapter
 
-        mainVm.apodList.observe(this, Observer { adapter.submitList(it) })
+        mainVm.apodList.observe(this, Observer {
+            triggerEmptyView(!it.isEmpty())
+            adapter.submitList(it)
+        })
+
         gridRecyclerView.scrollToPosition(args.adapterPosition)
 
-        Timber.d("List fragment started")
         swipeRefreshView.setOnRefreshListener { mainVm.sendRefreshEvent() }
         d = mainVm.refreshEffects.subscribe {
             Timber.d("received ${it.javaClass}")
             renderSwipeRefresh(it)
+        }
+    }
+
+
+    private fun triggerEmptyView(emptyViewVisible: Boolean) {
+        if (emptyViewVisible) {
+            emptyView.visibility = View.GONE
+            gridRecyclerView.visibility = View.VISIBLE
+        } else {
+            emptyView.visibility = View.VISIBLE
+            gridRecyclerView.visibility = View.GONE
         }
     }
 
