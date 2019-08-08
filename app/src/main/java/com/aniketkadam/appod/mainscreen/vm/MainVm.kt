@@ -54,7 +54,7 @@ class MainVm(private val repository: Repository) : ViewModel() {
             .also { result ->
                 refreshState = result
                     .toViewState()
-                    .replay().autoConnect(1)
+                    .replay(1).autoConnect(1)
 
                 refreshEffects = result.toViewEffects()
             }
