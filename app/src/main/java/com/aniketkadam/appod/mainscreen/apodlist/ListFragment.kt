@@ -54,10 +54,7 @@ class ListFragment : DaggerFragment() {
         gridRecyclerView.scrollToPosition(args.adapterPosition)
 
         swipeRefreshView.setOnRefreshListener { mainVm.sendRefreshEvent() }
-        d = mainVm.refreshEffects.subscribe {
-            Timber.d("received ${it.javaClass}")
-            renderSwipeRefresh(it)
-        }
+        d = mainVm.refreshEffects.subscribe { renderSwipeRefresh(it) }
     }
 
 
