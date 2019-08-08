@@ -11,3 +11,5 @@
 /build
 /captures
 .externalNativeBuild
+// Ignores the active pids when a test is running
+app/.attach*
