@@ -79,7 +79,6 @@ dependencies {
 
     implementation rxjava.lib
     implementation rxjava.android
-    implementation rxjava.bindingRecyclerview
 
     implementation dagger.lib
     kapt dagger.compiler
@@ -111,7 +110,6 @@ dependencies {
 
     // Paging
     implementation paging.lib
-    implementation paging.rxjava
     testImplementation paging.testing
 
     testImplementation mockito.lib
