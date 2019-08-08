@@ -9,7 +9,7 @@ import io.reactivex.Observable
 
 class MainVm(private val repository: Repository) : ViewModel() {
 
-    private val effectRelay = PublishRelay.create<Unit>()
+    private val publishRelay = PublishRelay.create<Unit>()
 
 
     val repoResult by lazy {
@@ -44,12 +44,12 @@ class MainVm(private val repository: Repository) : ViewModel() {
     }
 
     fun sendRefreshEvent() {
-        effectRelay.accept(Unit)
+        publishRelay.accept(Unit)
     }
 
     init {
         val swipeRefreshUseCase = SwipeRefreshUseCase(repository)
-        effectRelay.compose(swipeRefreshUseCase.swipeRefreshTransformer)
+        publishRelay.compose(swipeRefreshUseCase.swipeRefreshTransformer)
             .share()
             .also { result ->
                 refreshState = result
