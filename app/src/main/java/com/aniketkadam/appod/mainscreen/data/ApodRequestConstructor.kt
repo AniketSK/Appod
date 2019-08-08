@@ -25,7 +25,7 @@ class ApodRequestConstructor @Inject constructor() {
 class ApodRequestDates() : HashMap<String, String>() {
 
     constructor(startDate: String, endDate: String) : this() {
-        if (LocalDate.parse(endDate).isBefore(LocalDate.parse(startDate))) throw IllegalArgumentException("Start date cannot be before end date")
+        if (LocalDate.parse(endDate).isBefore(LocalDate.parse(startDate))) throw IllegalArgumentException("Start date cannot be before end date. Start: ${startDate}, End: ${endDate}")
         put("start_date", startDate)
         put("end_date", endDate)
     }
