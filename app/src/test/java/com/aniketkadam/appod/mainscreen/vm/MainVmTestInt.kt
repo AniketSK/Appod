@@ -89,14 +89,4 @@ class MainVmTestInt {
         verify(exactly = 1) { repository.getApodsFromRemote(ApodRequestDates(startDate, today)) }
     }
 
-
-    @Test
-    fun `loading is shown when the swipe refresh is initiated`() {
-        every { repository.getLatestAstronomyPic() } returns Maybe.just(emptyAstronomyPic().copy(date = "2019-08-01"))
-        val q: TestObserver<RefreshLce> = mainVm.refreshEffects.test().assertSubscribed().assertNotComplete()
-        q.assertNoValues()
-        mainVm.sendRefreshEvent()
-        q.assertValues(RefreshLce.Loading, RefreshLce.Success).assertNotComplete()
-    }
-
 }
