@@ -15,7 +15,8 @@
                 android:layout_height="200dp"
                 app:imageUrl="@{data.url}"
                 android:adjustViewBounds="true"
-                tools:srcCompat="@tools:sample/backgrounds/scenic"/>
+                tools:srcCompat="@tools:sample/backgrounds/scenic"
+                android:layout_gravity="center"/>
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:text="@{data.title}"/>
     </com.google.android.material.card.MaterialCardView>
