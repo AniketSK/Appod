@@ -10,12 +10,9 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aniketkadam.appod.R
 import com.aniketkadam.appod.mainscreen.di.MAIN_FRAGMENT_VM
-import com.aniketkadam.appod.mainscreen.vm.ActiveFragmentPosition
-import com.aniketkadam.appod.mainscreen.vm.MainVm
-import com.aniketkadam.appod.mainscreen.vm.PositionFragment
-import com.aniketkadam.appod.mainscreen.vm.RefreshLce
+import com.aniketkadam.appod.mainscreen.vm.*
 import dagger.android.support.DaggerFragment
-import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_layout.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -26,7 +23,7 @@ class ListFragment : DaggerFragment() {
     @field:Named(MAIN_FRAGMENT_VM)
     lateinit var mainVm: MainVm
     val args by navArgs<ListFragmentArgs>()
-    lateinit var d: Disposable
+    var disposable = CompositeDisposable()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
@@ -47,7 +44,11 @@ class ListFragment : DaggerFragment() {
         gridRecyclerView.scrollToPosition(args.adapterPosition)
 
         swipeRefreshView.setOnRefreshListener { mainVm.sendRefreshEvent() }
-        d = mainVm.refreshEffects.subscribe { renderSwipeRefresh(it) }
+
+        disposable.addAll(
+            mainVm.refreshState.subscribe { renderSwipeRefresh(it) },
+            mainVm.refreshEffects.subscribe { showErrorEffect() } // There's only one effect right now
+        )
     }
 
     private fun getAdapter(): PagedListAdapter = PagedListAdapter {
@@ -59,7 +60,6 @@ class ListFragment : DaggerFragment() {
         )
     }
 
-
     private fun triggerEmptyView(emptyViewVisible: Boolean) {
         if (emptyViewVisible) {
             emptyView.visibility = View.GONE
@@ -70,18 +70,19 @@ class ListFragment : DaggerFragment() {
         }
     }
 
-    private fun renderSwipeRefresh(state: RefreshLce?): Unit = when (state) {
-        is RefreshLce.Loading -> swipeRefreshView.isRefreshing = true
-        is RefreshLce.Success -> swipeRefreshView.isRefreshing = false
-        is RefreshLce.Error -> {
-            swipeRefreshView.isRefreshing = false
-            Toast.makeText(this.context, R.string.internet_error, Toast.LENGTH_LONG).show()
-        }
-        null -> Timber.d("Got an empty on the swipe refreshEffects view")
+    private fun showErrorEffect() {
+        Toast.makeText(this.context, R.string.internet_error, Toast.LENGTH_LONG).show()
     }
 
-    override fun onDestroy() {
-        d.dispose()
-        super.onDestroy()
+    private fun renderSwipeRefresh(state: ViewState?): Unit = when (state?.refreshing) {
+        is RefreshLce.Loading -> swipeRefreshView.isRefreshing = true
+        is RefreshLce.Success -> swipeRefreshView.isRefreshing = false
+        is RefreshLce.Error -> swipeRefreshView.isRefreshing = false
+        else -> Timber.d("Got an empty on the swipe refreshState view")
+    }
+
+    override fun onDestroyView() {
+        disposable.dispose()
+        super.onDestroyView()
     }
 }
