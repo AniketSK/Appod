@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Appod</string>
+    <string name="internet_error">Error, check your internet</string>
     <string name="no_data">No pics yet, refresh maybe?</string>
 </resources>
