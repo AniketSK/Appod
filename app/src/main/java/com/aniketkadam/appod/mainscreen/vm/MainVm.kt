@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.aniketkadam.appod.mainscreen.data.ApodRequestDates
+import com.aniketkadam.appod.mainscreen.data.PREFETCH_DISTANCE
 import com.aniketkadam.appod.mainscreen.data.Repository
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.ObservableTransformer
@@ -38,7 +39,12 @@ class MainVm(private val repository: Repository) : ViewModel() {
                     // Neither can we use Java optionals, nor does Room's Maybe only call complete when it emits an item, like it's suppsoed to.
                     //   Provide a shim to be able to tell if the item was present or not.
                     .map { SwipeRefresh(true, it.date) }
-                    .defaultIfEmpty(SwipeRefresh(false, LocalDate.now().toString()))
+                    .defaultIfEmpty(
+                        SwipeRefresh(
+                            false,
+                            LocalDate.now().minusDays(PREFETCH_DISTANCE).toString()
+                        )
+                    ) // If no items, get a full pre-fetch distance's worth
             }
             .filter { !(it.itemPresent && LocalDate.now().isEqual(LocalDate.parse(it.date))) }
             .map { it.date }
