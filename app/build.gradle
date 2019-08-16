@@ -14,7 +14,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "com.aniketkadam.appod.DaggerStubTestRunner"
-        buildConfigField 'String', "APOD_API_KEY", apod_api_key
+        buildConfigField 'String', "APOD_API_KEY", appCredentials.apod_api_key
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
