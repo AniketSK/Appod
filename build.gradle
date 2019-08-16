@@ -2,7 +2,6 @@
 
 buildscript {
     apply from: 'gradleScripts/dependencies.gradle'
-    apply from: 'gradleScripts/credentials.gradle'
     repositories {
         google()
         jcenter()

@@ -5,6 +5,11 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
 
+
+def credentialFile = rootProject.file("credentials.properties")
+def credentialProperty = new Properties()
+credentialProperty.load(new FileInputStream(credentialFile))
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -14,7 +19,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "com.aniketkadam.appod.DaggerStubTestRunner"
-        buildConfigField 'String', "APOD_API_KEY", appCredentials.apod_api_key
+        buildConfigField 'String', "APOD_API_KEY", credentialProperty.getOrDefault('apod_api_key', "\"DEMO_KEY\"")
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
