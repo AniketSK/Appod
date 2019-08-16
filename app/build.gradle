@@ -21,16 +21,22 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "com.aniketkadam.appod.DaggerStubTestRunner"
-        // Get either the key from the properties file (for local use), environment variables (for CI use) or a hardcoded constant (for casual cloners of the repo)
-        buildConfigField 'String', "APOD_API_KEY", credentialProperty.getOrDefault('apod_api_key', "\"DEMO_KEY\"")
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            testProguardFile 'proguard-test-rules.pro'
+            // Get either the key from the properties file (for local use), or a hardcoded constant (for casual cloners of the repo)
+            buildConfigField 'String', "APOD_API_KEY", credentialProperty.getOrDefault('apod_api_key', "\"DEMO_KEY\"")
+        }
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             testProguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', "APOD_API_KEY", credentialProperty.get('apod_api_key')
         }
     }
 
