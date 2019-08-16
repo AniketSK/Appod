@@ -2,12 +2,13 @@ package com.aniketkadam.appod.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 
 @Entity
 data class AstronomyPic(
-    val title: String,
-    val url: String,
-    val hdurl: String?,
-    val explanation: String,
-    @PrimaryKey val date: String
+    @field:SerializedName("title") val title: String,
+    @field:SerializedName("url") val url: String,
+    @field:SerializedName("hdurl") val hdurl: String?,
+    @field:SerializedName("explanation") val explanation: String,
+    @field:SerializedName("date") @PrimaryKey val date: String
 )
