@@ -25,7 +25,7 @@ class SwipeRefreshUseCase(private val repository: Repository) {
                         )
                     ) // If no items, get a full pre-fetch distance's worth
             }
-            .publish {
+            .compose {
                 Observable.merge(
                     it.handleAlreadyPresent(),
                     it.handleUpdateRequired()
