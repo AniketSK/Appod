@@ -12,7 +12,7 @@ class ApodListViewHolder(
     fun bind(incomingData: AstronomyPic) =
         with(binding) {
             data = incomingData
-            root.setOnClickListener { openDetailView(adapterPosition) }
+            apodImage.setOnClickListener { openDetailView(adapterPosition) }
             executePendingBindings()
         }
 
