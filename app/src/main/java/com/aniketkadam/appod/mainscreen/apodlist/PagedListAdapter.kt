@@ -9,7 +9,7 @@ import com.aniketkadam.appod.data.AstronomyPic
 import com.aniketkadam.appod.databinding.MainListApodItemBinding
 import com.aniketkadam.appod.mainscreen.PagedAdapterDiffs
 
-class PagedListAdapter(private val onItemClickedCallback: (Int) -> Unit) :
+class PagedListAdapter(private val openDetailView: (Int) -> Unit) :
     PagedListAdapter<AstronomyPic, ApodListViewHolder>(PagedAdapterDiffs.DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ApodListViewHolder {
@@ -20,7 +20,7 @@ class PagedListAdapter(private val onItemClickedCallback: (Int) -> Unit) :
                 R.layout.main_list_apod_item,
                 parent,
                 false
-            ), onItemClickedCallback
+            ), openDetailView
         )
     }
 
