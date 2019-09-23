@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "3815d4f847d514b158e960aaac289224",
+    "identityHash": "49f62a34abbdaf6f261d357b5f68ad60",
     "entities": [
       {
         "tableName": "AstronomyPic",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`title` TEXT NOT NULL, `url` TEXT NOT NULL, `hdurl` TEXT, `explanation` TEXT NOT NULL, `date` TEXT NOT NULL, PRIMARY KEY(`date`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`title` TEXT NOT NULL, `url` TEXT NOT NULL, `hdurl` TEXT, `explanation` TEXT NOT NULL, `date` TEXT NOT NULL, `bookmark` INTEGER, PRIMARY KEY(`date`))",
         "fields": [
           {
             "fieldPath": "title",
@@ -37,6 +37,12 @@
             "columnName": "date",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "bookmark",
+            "columnName": "bookmark",
+            "affinity": "INTEGER",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -52,7 +58,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3815d4f847d514b158e960aaac289224')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '49f62a34abbdaf6f261d357b5f68ad60')"
     ]
   }
 }

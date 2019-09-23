@@ -10,5 +10,6 @@ data class AstronomyPic(
     @field:SerializedName("url") val url: String,
     @field:SerializedName("hdurl") val hdurl: String?,
     @field:SerializedName("explanation") val explanation: String,
-    @field:SerializedName("date") @PrimaryKey val date: String
+    @field:SerializedName("date") @PrimaryKey val date: String,
+    val bookmark: Boolean? = null // TODO this null won't actually set it to null when it comes from json
 )
