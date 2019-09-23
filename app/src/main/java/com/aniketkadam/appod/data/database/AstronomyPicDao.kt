@@ -22,4 +22,7 @@ interface AstronomyPicDao {
 
     @Query("SELECT * from AstronomyPic ORDER BY date(date) DESC LIMIT 1")
     fun getLatestAstronomyPic(): Maybe<AstronomyPic>
+
+    @Query("UPDATE AstronomyPic SET bookmark = :isBookmark WHERE date =:id")
+    fun setIsBookmarkedAstronomyPic(id: String, isBookmark: Boolean)
 }

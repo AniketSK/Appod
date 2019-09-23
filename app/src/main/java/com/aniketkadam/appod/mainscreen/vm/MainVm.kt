@@ -62,6 +62,8 @@ class MainVm(private val repository: Repository) : ViewModel() {
             }
     }
 
+    fun setBookmark(picId: String, isBookmark: Boolean) = repository.setIsBookmarkedAstronomyPic(picId, isBookmark)
+
     override fun onCleared() {
         super.onCleared()
         disposeable.dispose()

@@ -35,6 +35,7 @@ class Repository @Inject constructor(private val dao: AstronomyPicDao, private v
     fun getLatestAstronomyPic() = dao.getLatestAstronomyPic()
     fun getApodsFromRemote(apodRequestDates: ApodRequestDates) = apodApi.getApodList(apodRequestDates)
     fun saveData(list: List<AstronomyPic>) = dao.insert(list)
+    fun setIsBookmarkedAstronomyPic(id : String, isBookmark : Boolean) = dao.setIsBookmarkedAstronomyPic(id, isBookmark)
 
 }
 
