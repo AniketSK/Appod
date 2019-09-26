@@ -10,8 +10,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class NetworkingModule {
+object NetworkingModule {
 
+    @JvmStatic
     @Singleton
     @Provides
     fun provideRetrofit(): Retrofit =

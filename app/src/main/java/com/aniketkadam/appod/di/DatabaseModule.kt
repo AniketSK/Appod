@@ -7,8 +7,9 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class DatabaseModule {
+object DatabaseModule {
 
+    @JvmStatic
     @Provides
     fun getDatabase(context: Context): AstronomyPicDatabase =
         Room.databaseBuilder(context, AstronomyPicDatabase::class.java, "astronomy_pic_database")
