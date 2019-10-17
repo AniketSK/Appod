@@ -9,7 +9,7 @@ import net.danlew.android.joda.JodaTimeAndroid
 class AppodApplication : DaggerApplication() {
 
     private val appInjector by lazy {
-        DaggerAppComponent.builder().application(this).build()
+        DaggerAppComponent.factory().create(this)
     }
 
     override fun onCreate() {

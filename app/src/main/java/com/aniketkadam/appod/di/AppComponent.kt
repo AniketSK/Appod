@@ -22,11 +22,10 @@ interface AppComponent : AndroidInjector<DaggerApplication> {
 
     override fun inject(instance: DaggerApplication)
 
-    @Component.Builder
-    interface Builder {
-        @BindsInstance
-        fun application(application: Application): Builder
+    @Component.Factory
+    interface Factory {
 
-        fun build(): AppComponent
+        fun create(@BindsInstance application: Application): AppComponent
+
     }
 }

@@ -9,7 +9,7 @@ import timber.log.Timber
 class DaggerStubApplication : DaggerApplication() {
 
     private val applicationInjector by lazy {
-        DaggerAppComponentTest.builder().bindApplication(this).build()
+        DaggerAppComponentTest.factory().create(this)
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> = applicationInjector

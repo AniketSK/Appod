@@ -18,11 +18,10 @@ import javax.inject.Singleton
 interface AppComponentTest : AndroidInjector<DaggerStubApplication> {
 
 
-    @Component.Builder
-    interface Builder {
-        @BindsInstance
-        fun bindApplication(app: Application): Builder
+    @Component.Factory
+    interface Factory {
 
-        fun build(): AppComponentTest
+        fun create(@BindsInstance app: Application): AppComponentTest
+
     }
 }
