@@ -6,11 +6,11 @@ import androidx.lifecycle.ViewModel
 import com.aniketkadam.appod.mainscreen.data.Repository
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.Observable
-import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
 
 class MainVm(private val repository: Repository) : ViewModel() {
 
-    private lateinit var disposeable: Disposable
+    private lateinit var disposeable: CompositeDisposable
     private val publishRelay = PublishRelay.create<Unit>()
 
 
@@ -56,7 +56,7 @@ class MainVm(private val repository: Repository) : ViewModel() {
             .also { result ->
                 refreshState = result
                     .toViewState()
-                    .replay(1).autoConnect(1) { disposeable = it }
+                    .replay(1).autoConnect(1) { disposeable.add(it) }
 
                 refreshEffects = result.toViewEffects()
             }
