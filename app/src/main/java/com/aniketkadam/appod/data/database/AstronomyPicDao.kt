@@ -7,6 +7,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.aniketkadam.appod.data.AstronomyPic
+import io.reactivex.Completable
 import io.reactivex.Maybe
 
 @Dao
@@ -24,5 +25,5 @@ interface AstronomyPicDao {
     fun getLatestAstronomyPic(): Maybe<AstronomyPic>
 
     @Query("UPDATE AstronomyPic SET bookmark = :isBookmark WHERE date =:id")
-    fun setIsBookmarkedAstronomyPic(id: String, isBookmark: Boolean)
+    fun setIsBookmarkedAstronomyPic(id: String, isBookmark: Boolean): Completable
 }

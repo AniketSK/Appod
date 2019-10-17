@@ -6,6 +6,7 @@ import androidx.paging.PagedList
 import com.aniketkadam.appod.data.ApodApi
 import com.aniketkadam.appod.data.AstronomyPic
 import com.aniketkadam.appod.data.database.AstronomyPicDao
+import io.reactivex.Completable
 import javax.inject.Inject
 
 const val PREFETCH_DISTANCE = 50
@@ -35,7 +36,8 @@ class Repository @Inject constructor(private val dao: AstronomyPicDao, private v
     fun getLatestAstronomyPic() = dao.getLatestAstronomyPic()
     fun getApodsFromRemote(apodRequestDates: ApodRequestDates) = apodApi.getApodList(apodRequestDates)
     fun saveData(list: List<AstronomyPic>) = dao.insert(list)
-    fun setIsBookmarkedAstronomyPic(id : String, isBookmark : Boolean) = dao.setIsBookmarkedAstronomyPic(id, isBookmark)
+    fun setIsBookmarkedAstronomyPic(id: String, isBookmark: Boolean): Completable =
+        dao.setIsBookmarkedAstronomyPic(id, isBookmark)
 
 }
 

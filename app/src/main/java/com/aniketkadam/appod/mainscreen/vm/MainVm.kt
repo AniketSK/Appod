@@ -7,6 +7,7 @@ import com.aniketkadam.appod.mainscreen.data.Repository
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
 class MainVm(private val repository: Repository) : ViewModel() {
 
@@ -62,7 +63,13 @@ class MainVm(private val repository: Repository) : ViewModel() {
             }
     }
 
-    fun setBookmark(picId: String, isBookmark: Boolean) = repository.setIsBookmarkedAstronomyPic(picId, isBookmark)
+    fun setBookmark(picId: String, isBookmark: Boolean) {
+        disposeable.add(
+            repository.setIsBookmarkedAstronomyPic(picId, isBookmark).subscribeOn(
+                Schedulers.io()
+            ).subscribe()
+        )
+    }
 
     override fun onCleared() {
         super.onCleared()
